@@ -3,8 +3,11 @@
 - name: install ruby
   yum: name=ruby state=installed
 
+- name: install rubygems
+  yum: name=rubygems state=installed
+
 - name: install serverspec
-  gem: name={{ item }} state=present user_install=no 
+  gem: name={{ item }} state=present user_install=no
   with_items:
    - rake
    - serverspec

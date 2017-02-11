@@ -2,3 +2,6 @@
 # tasks file for common
 - name: install epel
   yum: name=epel-release state=installed
+
+- name: install libselinux-python
+  yum: name=libselinux-python state=installed

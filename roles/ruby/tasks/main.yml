@@ -1,0 +1,49 @@
+---
+# tasks file for ruby
+
+# Rubyの依存パッケージをinstall
+- yum: name={{item}} state=latest
+  with_items:
+    - gcc
+    - zlib-devel
+    - openssl-devel
+    - mysql-server
+    - mysql-devel
+    - libffi-devel
+    - libxml2-devel
+    - libxslt-devel
+    - httpd-devel
+    - curl-devel
+    - apr-devel
+    - apr-util-devel
+    - readline-devel
+    - ImageMagick
+    - ImageMagick-devel
+
+# Git install
+- yum: name=git state=latest
+
+# Rubyをrbenv経由でinstall
+- git: >
+    repo=https://github.com/sstephenson/rbenv.git
+    dest=/home/vagrant/.rbenv/
+- git: >
+    repo=https://github.com/sstephenson/ruby-build.git
+    dest=/home/vagrant/.rbenv/plugins/ruby-build/
+- file: path=/home/vagrant/.rbenv owner=vagrant state=directory recurse=yes
+
+- shell: echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+  sudo: no
+- shell: echo 'export PATH="$HOME/.rbenv/shims:$PATH"' >> ~/.bash_profile
+  sudo: no
+- shell: echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+  sudo: no
+
+- shell: bash -lc "rbenv install -v 2.2.4"
+  sudo: no
+- shell: bash -lc "rbenv rehash"
+  sudo: no
+- shell: bash -lc "rbenv global 2.2.4"
+  sudo: no
+- shell: bash -lc "gem install bundler"
+  sudo: no
