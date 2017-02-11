@@ -3,7 +3,6 @@
   become: yes
   connection: local
   roles:
-    - libselinux-python 
     - common
     - nginx
 #    - ruby
